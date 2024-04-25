@@ -1,16 +1,16 @@
 plugins {
-    id("com.gradle.develocity") version "3.17.1"
+    id("com.gradle.enterprise") version "3.17.2"
     id("com.gradle.common-custom-user-data-gradle-plugin") version "2.0"
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
 val isCI = System.getenv("GITHUB_ACTIONS") != null
 
-develocity {
+gradleEnterprise {
     server = "https://ge.solutions-team.gradle.com"
     buildScan {
-        uploadInBackground = !isCI
-        publishing.onlyIf { it.isAuthenticated }
+        isUploadInBackground = !isCI
+        publishAlways()
         obfuscation {
             ipAddresses { addresses -> addresses.map { _ -> "0.0.0.0" } }
         }
